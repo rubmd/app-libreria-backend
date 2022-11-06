@@ -1,30 +1,26 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Libro} from '../models';
 import {LibroRepository} from '../repositories';
 
+@authenticate("admin")
 export class LibroController {
   constructor(
     @repository(LibroRepository)
-    public libroRepository : LibroRepository,
-  ) {}
+    public libroRepository: LibroRepository,
+  ) { }
 
   @post('/libros')
   @response(200, {
@@ -47,6 +43,7 @@ export class LibroController {
     return this.libroRepository.create(libro);
   }
 
+  @authenticate.skip()
   @get('/libros/count')
   @response(200, {
     description: 'Libro model count',
@@ -58,6 +55,7 @@ export class LibroController {
     return this.libroRepository.count(where);
   }
 
+  @authenticate.skip()
   @get('/libros')
   @response(200, {
     description: 'Array of Libro model instances',
