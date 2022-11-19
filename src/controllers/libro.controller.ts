@@ -93,6 +93,7 @@ export class LibroController {
     return this.libroRepository.updateAll(libro, where);
   }
 
+  @authenticate.skip()
   @get('/libros/{id}')
   @response(200, {
     description: 'Libro model instance',

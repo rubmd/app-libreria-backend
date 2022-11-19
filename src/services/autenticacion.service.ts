@@ -30,10 +30,11 @@ export class AutenticacionService {
 
 
   CifrarClave(clave: string) {
-    let claveCifrada = CryptoJS.AES.encrypt(clave, 'progweb@2022').toString();
+    let claveCifrada = CryptoJS.MD5(clave).toString();
     return claveCifrada
   }
 
+  //No esta funcionando Descifrar clave
   DescifrarClave(clave: string) {
     var bytes = CryptoJS.AES.decrypt(clave, 'progweb@2022');
     var ClaveDescifrada = bytes.toString(CryptoJS.enc.Utf8);
